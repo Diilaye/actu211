@@ -31,9 +31,14 @@ const Categorie = new Schema({
         ref: "media",
     },
 
-    author : {
+    author: {
         type: Schema.Types.ObjectId,
         ref: "user-admin",
+    },
+
+    showMenu: {
+        type: String,
+        default: '1'
     },
 
 

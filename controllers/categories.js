@@ -1,6 +1,25 @@
 const categorieModel = require('../models/categories');
 
+const sousCategorieModel = require('../models/sous-rubrique');
 
+const articleModel = require('../models/article');
+
+const objectPopulate = [{
+    path: 'author',
+    select: 'nom prenom'
+}, {
+    path: 'categorie',
+    select: 'titre slug color bgColor'
+}, {
+    path: 'tags',
+    select: 'titre slug'
+}, {
+    path: 'keyWorod',
+    select: 'titre slug'
+}, {
+    path: 'image',
+    select: 'url'
+}];
 
 exports.add = async (req, res) => {
 
@@ -10,14 +29,14 @@ exports.add = async (req, res) => {
 
             titre,
 
-          
+
 
             // color,
 
             // bgColor,
 
             // photoCouverture,
-           
+
 
         } = req.body;
 
@@ -62,12 +81,25 @@ exports.one = async (req, res) => {
 
     try {
 
-        const categorie = await categorieModel.findById(req.params.id).excec();
+        const categorie = await categorieModel.findById(req.params.id).exec();
+
+        const sousRubriques = await sousCategorieModel.find({
+            categorie: req.params.id
+        }).exec();
+
+        const articles = await articleModel.find({
+            categorie: req.params.id
+        }).populate(objectPopulate).exec();
+
 
         return res.status(200).json({
             message: 'liste réussi',
             status: 'OK',
-            data: categorie,
+            data: {
+                "categorie": categorie,
+                "sous-rubrique": sousRubriques,
+                "articles": articles
+            },
             statusCode: 200
         });
 
@@ -86,6 +118,7 @@ exports.one = async (req, res) => {
 }
 
 exports.all = async (req, res) => {
+
 
     try {
 
@@ -111,6 +144,7 @@ exports.all = async (req, res) => {
     }
 
 }
+
 
 exports.update = async (req, res) => {
 

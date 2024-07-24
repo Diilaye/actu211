@@ -9,7 +9,7 @@ router.put('/:id', require('../controllers/categories').update);
 
 router.delete('/:id', require('../controllers/categories').delete);
 
-router.post('/', require('../middleweares/auth').checkRole('aministrateur'),require('../controllers/categories').add);
+router.post('/', require('../middleweares/auth').checkRole('aministrateur'), require('../controllers/categories').add);
 
 
 
