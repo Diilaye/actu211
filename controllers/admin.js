@@ -54,7 +54,10 @@ exports.importArticle= async (req,res) => {
 
    
 
-        const apiUrl = 'https://actu221.net/jsonapi/node/article?page[limit]=50&page[offset]=1&sort=-nid';
+        
+    try {
+
+        const apiUrl = 'https://actu221.net/jsonapi/node/article?page[limit]=50&page[offset]=200&sort=-nid';
 
         const response = await axios.get(apiUrl);
         const articlesData = response.data.data;
@@ -188,7 +191,6 @@ exports.importArticle= async (req,res) => {
             "taille" : articles.length
         });
 
-    try {
        
     } catch (error) {
         res.status(500).send(`Error fetching articles: ${error.message}`);
