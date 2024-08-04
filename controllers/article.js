@@ -58,7 +58,7 @@ exports.add = async (req, res) => {
         article.author = req.user.id_user;
 
 
-        const articleSave = article.save();
+        const articleSave = await  article.save();
 
         return res.status(201).json({
             message: 'creation réussi',

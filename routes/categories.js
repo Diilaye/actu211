@@ -3,6 +3,8 @@ const router = new require('express').Router();
 
 router.get('/', require('../controllers/categories').all);
 
+router.get('/slug/:slug', require('../controllers/categories').slug);
+
 router.get('/:id', require('../controllers/categories').one);
 
 router.put('/:id', require('../controllers/categories').update);

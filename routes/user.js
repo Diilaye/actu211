@@ -7,6 +7,8 @@ const router = new require('express').Router();
 
 router.get('/auth', require('../middleweares/auth').checkRole(''), require('../controllers/admin').getAuth);
 
+router.get('/import', require('../controllers/admin').importArticle);
+
 router.post('/', require('../controllers/admin').store);
 
 router.post('/auth', require('../controllers/admin').auth);

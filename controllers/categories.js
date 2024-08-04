@@ -117,6 +117,53 @@ exports.one = async (req, res) => {
 
 }
 
+exports.slug = async (req, res) => {
+
+    try {
+
+        console.log(req.params.name);
+        
+
+        const categorie = await categorieModel.find({
+            titre : req.params.slug.toUpperCase()
+        }).exec();
+
+        
+
+        const sousRubriques = await sousCategorieModel.find({
+            categorie: categorie[0].id
+        }).exec();
+
+        const articles = await articleModel.find({
+            categorie: categorie[0].id
+        }).populate(objectPopulate).exec();
+
+
+        return res.status(200).json({
+            message: 'liste réussi',
+            status: 'OK',
+            data: {
+                "categorie": categorie[0],
+                "sous-rubrique": sousRubriques,
+                "articles": articles
+            },
+            statusCode: 200
+        });
+
+    } catch (error) {
+
+        return res.status(404).json({
+            message: 'erreur server ',
+            status: 'NOT OK',
+            data: error,
+            statusCode: 404
+        });
+
+
+    }
+
+}
+
 exports.all = async (req, res) => {
 
 
