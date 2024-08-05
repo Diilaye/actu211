@@ -24,6 +24,11 @@ const Articles = new Schema({
         enum: ["top", "une", "rubrique", "none"],
         default: "none"
     },
+    statusOnline: {
+        type: String,
+        enum: ["on", "off", "del"],
+        default: "on"
+    },
 
     categorie: {
         type: Schema.Types.ObjectId,

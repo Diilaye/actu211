@@ -82,6 +82,109 @@ exports.add = async (req, res) => {
 
 }
 
+exports.update = async (req,res) => {
+
+    try {
+       
+    let {
+        titre,
+
+        description,
+
+        typeUne,
+
+        categorie,
+
+        tags,
+
+        keyWorod,
+
+        image,
+
+
+    } = req.body;
+
+
+    const article = await articleModel.findById(req.params.id);
+
+    article.titre = titre;
+
+    article.description = description;
+
+    article.typeUne = typeUne;
+
+    article.categorie = categorie;
+
+    article.tags = tags;
+
+    article.keyWorod = keyWorod;
+
+    article.image = image;
+
+    article.author = req.user.id_user;
+
+
+    const articleSave = await  article.save();
+
+    return res.status(200).json({
+        message: 'modification réussi',
+        status: 'OK',
+        data: articleSave,
+        statusCode: 201
+    });
+
+
+    } catch (error) {
+
+        return res.status(404).json({
+            message: 'erreur server ',
+            status: 'NOT OK',
+            data: error,
+            statusCode: 404
+        });
+
+
+    }
+
+}
+
+exports.ActiveArticle = async (req,res) => {
+
+    try {
+       
+    let {
+        statusOnline,
+    } = req.body;
+
+
+    const article = await articleModel.findById(req.params.id);
+
+    article.statusOnline = statusOnline;
+
+    const articleSave = await  article.save();
+
+    return res.status(200).json({
+        message: 'modification réussi',
+        status: 'OK',
+        data: articleSave,
+        statusCode: 201
+    });
+
+
+    } catch (error) {
+
+        return res.status(404).json({
+            message: 'erreur server ',
+            status: 'NOT OK',
+            data: error,
+            statusCode: 404
+        });
+
+
+    }
+
+}
+
 exports.all = async (req, res) => {
 
     try {
@@ -146,3 +249,4 @@ exports.topArticle = async (req, res) => {
 
 
 }
+
