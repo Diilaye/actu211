@@ -6,6 +6,8 @@ router.get('/', require('../controllers/emission').all);
 
 router.post('/', require('../middleweares/auth').checkRole('aministrateur'), require('../controllers/emission').add);
 
+router.put('/:id', require('../middleweares/auth').checkRole('aministrateur'), require('../controllers/emission').update);
+
 
 
 module.exports = router;

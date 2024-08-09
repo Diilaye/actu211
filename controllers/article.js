@@ -1,5 +1,7 @@
 const articleModel = require('../models/article');
 
+const cST = require('../utils/title-to-slug');
+
 const objectPopulate = [{
     path: 'author',
     select: 'nom prenom'
@@ -42,6 +44,8 @@ exports.add = async (req, res) => {
         const article = articleModel();
 
         article.titre = titre;
+
+        article.slug = cST.convertToSlug(titre)
 
         article.description = description;
 
@@ -191,8 +195,7 @@ exports.all = async (req, res) => {
 
         const articles = await articleModel.find({}).populate(objectPopulate).exec();
 
-
-
+     
         return res.status(200).json({
             message: 'liste réussi',
             status: 'OK',
@@ -223,15 +226,51 @@ exports.topArticle = async (req, res) => {
             typeUne: 'top'
         }).populate(objectPopulate).exec();
 
-        console.log("articles[articles.length - 1]");
-        console.log(articles[articles.length - 1]);
+        return res.status(200).json({
+            message: 'liste réussi',
+            status: 'OK',
+            data: articles[articles.length - 1],
+            statusCode: 200
+        });
+
+    } catch (error) {
+
+        return res.status(404).json({
+            message: 'erreur server ',
+            status: 'NOT OK',
+            data: error,
+            statusCode: 404
+        });
+
+
+    }
+
+
+}
+
+exports.slug = async (req, res) => {
+
+    try {
+
+        let {
+            slug
+        } = req.params;
+
+        console.log(slug);
+        
+
+        const article = await articleModel.findOne({
+            slug: slug
+        }).populate(objectPopulate).exec();
+
+ 
 
 
 
         return res.status(200).json({
             message: 'liste réussi',
             status: 'OK',
-            data: articles[articles.length - 1],
+            data: article,
             statusCode: 200
         });
 

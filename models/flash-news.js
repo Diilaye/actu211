@@ -19,6 +19,12 @@ const FlashNews = new Schema({
         ref: "user-admin",
     },
 
+    statusOnline: {
+        type: String,
+        enum: ["on", "off", "del"],
+        default: "on"
+    },
+
     date: {
         type: Date,
         default: Date.now()

@@ -131,9 +131,11 @@ exports.update = async (req, res) => {
 
             photoCouverture,
 
+            statusOnline
+
         } = req.body;
 
-        const sousRubrique = sousRubriqueModel.findById(req.params.id).exec();
+        const sousRubrique = await sousRubriqueModel.findById(req.params.id).exec();
 
         if (titre != undefined) {
             sousRubrique.titre = titre;
@@ -156,12 +158,16 @@ exports.update = async (req, res) => {
             sousRubrique.photoCouverture = photoCouverture;
         }
 
+        if (statusOnline != undefined) {
+            sousRubrique.statusOnline = statusOnline;
+        }
+
 
         const sousRubriqueSave = await sousRubrique.save();
 
 
-        return res.status(201).json({
-            message: 'creation réussi',
+        return res.status(200).json({
+            message: 'modifications réussi',
             status: 'OK',
             data: sousRubriqueSave,
             statusCode: 201

@@ -89,7 +89,8 @@ exports.update = async (req, res) => {
 
     try {
         let {
-            titre
+            titre,
+            statusOnline
         } = req.body;
 
         const tag = await tagModel.findById(req.params.id);
@@ -98,6 +99,11 @@ exports.update = async (req, res) => {
             tag.titre = titre;
             tag.slug = titre.split(' ').join('-');
         }
+
+        if (statusOnline != undefined) {
+            tag.statusOnline = statusOnline;
+        }
+
 
         const tagSave = await tag.save();
 

@@ -11,7 +11,6 @@ const PostDigiteaux = new Schema({
     },
 
 
-
     image: {
         type: Schema.Types.ObjectId,
         ref: "media",
@@ -22,6 +21,22 @@ const PostDigiteaux = new Schema({
         ref: "user-admin",
     },
 
+    statusOnline: {
+        type: String,
+        enum: ["on", "off", "del"],
+        default: "on"
+    },
+
+    titre: {
+        type: String,
+        default: ''
+    },
+
+    statusOnline: {
+        type: String,
+        enum: ["on", "off", "del"],
+        default: "on"
+    },
 
 
     date: {

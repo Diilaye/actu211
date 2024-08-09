@@ -55,6 +55,57 @@ exports.add = async (req, res) => {
 
 }
 
+exports.update = async (req, res) => {
+
+    try {
+        let {
+
+            type,
+            desc,
+            statusOnline,
+
+
+        } = req.body;
+
+        const flash = await  flashNewsModel.findById(req.params.id);
+
+        if(type != undefined) {
+            flash.type = type;
+        }
+
+        if(desc != undefined) {
+            flash.desc = desc;
+        }
+
+        if(statusOnline != undefined) {
+            flash.statusOnline = statusOnline;
+        }
+
+
+        const flashSave = await flash.save();
+
+        return res.status(200).json({
+            message: 'modif réussi',
+            status: 'OK',
+            data: flashSave,
+            statusCode: 201
+        });
+
+
+    } catch (error) {
+
+        return res.status(404).json({
+            message: 'erreur server ',
+            status: 'NOT OK',
+            data: error,
+            statusCode: 404
+        });
+
+    }
+
+
+}
+
 
 exports.all = async (req, res) => {
 

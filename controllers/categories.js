@@ -44,7 +44,7 @@ exports.add = async (req, res) => {
 
         categorie.titre = titre;
 
-        categorie.slug = titre.split(' ').join('-');;
+        categorie.slug = titre.split(' ').join('-');
 
         // categorie.color = color;
 
@@ -195,55 +195,62 @@ exports.all = async (req, res) => {
 
 exports.update = async (req, res) => {
 
+    
+   
+
+
+
     try {
+
 
         let {
 
             titre,
-
-            slug,
-
+    
+            statusOnline,
+    
             color,
-
+    
             bgColor,
-
+    
             photoCouverture
-
+    
         } = req.body;
-
-        const categorie = categorieModel.findById(req.params.id);
-
+    
+        const categorie = await categorieModel.findById(req.params.id);
+    
         if (titre != undefined) {
             categorie.titre = titre;
+            categorie.slug = titre.split(' ').join('-');
         }
-
-
-        if (slug != undefined) {
-            categorie.slug = slug;
-        }
-
+    
         if (color != undefined) {
             categorie.color = color;
         }
-
+    
         if (bgColor != undefined) {
             categorie.bgColor = bgColor;
-
+    
         }
-
+    
         if (photoCouverture != undefined) {
             categorie.photoCouverture = photoCouverture;
         }
-
+    
+        if (statusOnline != undefined) {
+            categorie.statusOnline = statusOnline;
+        }
+    
         const categorieSave = await categorie.save();
-
+    
         return res.status(200).json({
             message: 'update réussi',
             status: 'OK',
             data: categorieSave,
             statusCode: 200
         });
-
+    
+    
 
     } catch (error) {
 

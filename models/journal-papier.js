@@ -5,8 +5,6 @@ const Schema = mongoose.Schema;
 const JournalPapier = new Schema({
 
 
-
-
     image: {
         type: Schema.Types.ObjectId,
         ref: "media",
@@ -23,6 +21,11 @@ const JournalPapier = new Schema({
     },
 
 
+    statusOnline: {
+        type: String,
+        enum: ["on", "off", "del"],
+        default: "on"
+    },
 
     date: {
         type: Date,

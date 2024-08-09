@@ -57,6 +57,54 @@ exports.add = async (req, res) => {
 
 }
 
+
+exports.update = async (req, res) => {
+
+    try {
+
+        let {
+
+            image,
+
+            statusOnline
+
+
+        } = req.body;
+
+        const posts = await  postsDigiteauxModel.findById(req.params.id);
+
+        if(image != undefined) {
+            posts.image = image;
+        }
+
+        if(statusOnline !=undefined) {
+            posts.statusOnline = statusOnline;
+        }
+
+        const postSave = await posts.save();
+
+        return res.status(200).json({
+            message: 'modif réussi',
+            status: 'OK',
+            data: postSave,
+            statusCode: 201
+        });
+
+
+    } catch (error) {
+
+        return res.status(404).json({
+            message: 'erreur server ',
+            status: 'NOT OK',
+            data: error,
+            statusCode: 404
+        });
+
+    }
+
+}
+
+
 exports.all = async (req, res) => {
     try {
 

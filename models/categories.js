@@ -41,6 +41,11 @@ const Categorie = new Schema({
         default: '1'
     },
 
+    statusOnline: {
+        type: String,
+        enum: ["on", "off", "del"],
+        default: "on"
+    },
 
     date: {
         type: Date,

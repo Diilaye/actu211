@@ -16,6 +16,12 @@ const Tags = new Schema({
         unique: true
     },
 
+    statusOnline: {
+        type: String,
+        enum: ["on", "off", "del"],
+        default: "on"
+    },
+
     date: {
         type: Date,
         default: Date.now()
