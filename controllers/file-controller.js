@@ -55,6 +55,11 @@ exports.all = async (req, res, next) => {
 
     try {
         const files = await filesModel.find(req.query).exec();
+        // for await (const element of files) {
+        //     const f = await filesModel.findById(element._id).exec();
+        //     f.url = f.url.replace(/ /g, '-');
+        //     const fs = await f.save();
+        // }
         res.json({
             message: 'Fichiers trouvée avec succes',
             status: 'OK',
@@ -65,7 +70,7 @@ exports.all = async (req, res, next) => {
         res.json({
             message: 'Fichier non trouvée',
             status: 'OK',
-            data: err,
+            data: error,
             statusCode: 400
         })
     }
