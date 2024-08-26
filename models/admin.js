@@ -6,7 +6,7 @@ const AdminModels = new Schema({
 
     service: {
         type: String,
-        enum: ["journaliste", "redacteur", "aministrateur", "comptable", "infographie", "stagiare", "client"],
+        enum: ["journaliste", "redacteur", "administrateur", "comptable", "infographie", "stagiare", "client"],
         default: "client"
     },
 
