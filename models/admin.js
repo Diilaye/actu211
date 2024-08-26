@@ -46,6 +46,12 @@ const AdminModels = new Schema({
         default: "inactive"
     },
 
+    statusOnline: {
+        type: String,
+        enum: ["on", "off", "del"],
+        default: "on"
+    },
+
     token: {
         type: String,
     },

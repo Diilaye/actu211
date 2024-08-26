@@ -20,7 +20,7 @@ router.get('/', require('../controllers/admin').all);
 
 router.get(':id/', require('../middleweares/auth').checkRole('aministrateur'), require('../controllers/admin').one);
 
-router.put('/', require('../middleweares/auth').checkRole(''), require('../controllers/admin').update);
+router.put('/:id', require('../middleweares/auth').checkRole(''), require('../controllers/admin').update);
 
 
 module.exports = router;
