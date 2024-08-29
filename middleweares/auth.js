@@ -2,8 +2,6 @@
 // Middleware to check if user has required role
 exports.checkRole = (role) => {
 
-    console.log("exports.checkRole");
-    console.log(role);
     
 
     return (req, res, next) => {
