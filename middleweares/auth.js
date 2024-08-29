@@ -2,6 +2,10 @@
 // Middleware to check if user has required role
 exports.checkRole = (role) => {
 
+    console.log("exports.checkRole");
+    console.log(role);
+    
+
     return (req, res, next) => {
 
         //get the token from the header if present
