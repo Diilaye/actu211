@@ -4,9 +4,9 @@ const router = new require('express').Router();
 router.get('/', require('../controllers/emission').all);
 
 
-router.post('/', require('../middleweares/auth').checkRole('aministrateur'), require('../controllers/emission').add);
+router.post('/', require('../middleweares/auth').checkRole('administrateur'), require('../controllers/emission').add);
 
-router.put('/:id', require('../middleweares/auth').checkRole('aministrateur'), require('../controllers/emission').update);
+router.put('/:id', require('../middleweares/auth').checkRole('administrateur'), require('../controllers/emission').update);
 
 
 
