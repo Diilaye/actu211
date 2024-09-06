@@ -3,6 +3,38 @@ const { base64 } = require('../utils/base64');
 
 exports.store = async (req, res, next) => {
 
+    const file = filesModel();
+
+    const F = await base64(req.body.image);
+
+    console.log(F);
+
+    if ((F == 'File to large')) {
+        return res.status(404).json({
+            message: 'Fichier trop volumineux ',
+            status: 'OK',
+            data: "",
+            statusCode: 404
+        })
+    } else {
+        console.log(F['url']);
+
+        file.url = F['url'];
+
+        file.type = F['type'];
+
+        // file.user = req.user.id;
+
+        const saveFile = await file.save();
+
+        return res.json({
+            message: 'Fichier crée avec succes',
+            status: 'OK',
+            data: saveFile,
+            statusCode: 201
+        })
+    }
+
     try {
 
         const file = filesModel();

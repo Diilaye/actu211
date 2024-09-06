@@ -4,20 +4,23 @@ exports.base64 = async (base) => {
         return false;
     } else {
         // to declare some path to store your converted image
-        const matches = base.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+        // const matches = base.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+        const regex = /^data:(.+)\?(.+);base64,(.+)$/;
+        const matches = base.match(regex);
             response = {};
-
-
-        if (matches.length !== 3) {
+        
+        if (matches.length !== 4) {
             return new Error('Invalid input string');
         }
 
-        response.type = matches[1];
+        response.type = matches[2];
 
-        response.data = Buffer(matches[2], 'base64');
+        response.data = Buffer(matches[3], 'base64');
 
         let decodedImg = response;
 
+     
+        
 
         let imageBuffer = decodedImg.data;
 
@@ -26,7 +29,7 @@ exports.base64 = async (base) => {
 
 
 
-        let fileName = require('uid').uid();
+        let fileName = matches[1];
 
 
         require('fs').writeFileSync(require('path').join(__dirname, '..', 'uploads', fileName + '.' + type.split('/')[1]), imageBuffer, 'utf8');
