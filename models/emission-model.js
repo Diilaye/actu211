@@ -13,13 +13,11 @@ const Emission = new Schema({
     titre: {
         type: String,
         require: true,
-        unique: true
     },
 
     slug: {
         type: String,
         require: true,
-        unique: true
     },
 
     urlMedia: {
