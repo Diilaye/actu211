@@ -86,7 +86,7 @@ exports.slug = async (req, res) => {
         
 
         const tag = await tagModel.find({
-            titre : req.params.slug
+            slug : req.params.slug
         }).exec();
 
         
