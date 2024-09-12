@@ -1,5 +1,24 @@
 
 const tagModel = require('../models/tags');
+const articleModel = require('../models/article');
+
+const objectPopulate = [{
+    path: 'author',
+    select: 'nom prenom'
+}, {
+    path: 'categorie',
+    select: 'titre slug color bgColor'
+}, {
+    path: 'tags',
+    select: 'titre slug'
+}, {
+    path: 'keyWorod',
+    select: 'titre slug'
+}, {
+    path: 'image',
+    select: 'url'
+}];
+
 
 exports.add = async (req, res) => {
 
@@ -57,6 +76,50 @@ exports.all = async (req, res) => {
         });
 
     }
+}
+
+exports.slug = async (req, res) => {
+
+    try {
+
+        console.log(req.params.name);
+        
+
+        const tag = await tagModel.find({
+            titre : req.params.slug
+        }).exec();
+
+        
+
+    
+
+        const articles = await articleModel.find({
+            tags: tag[0].id
+        }).populate(objectPopulate).exec();
+
+
+        return res.status(200).json({
+            message: 'liste réussi',
+            status: 'OK',
+            data: {
+                "tag": tag[0],
+                "articles": articles
+            },
+            statusCode: 200
+        });
+
+    } catch (error) {
+
+        return res.status(404).json({
+            message: 'erreur server ',
+            status: 'NOT OK',
+            data: error,
+            statusCode: 404
+        });
+
+
+    }
+
 }
 
 exports.one = async (req, res) => {
