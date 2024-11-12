@@ -31,15 +31,17 @@ exports.base64 = async (base) => {
 
         let fileName = matches[1];
 
+        console.log(require('path').join(__filename, '..', '..', 'uploads', fileName + '.' + type.split('/')[1]))
 
-        require('fs').writeFileSync(require('path').join(__dirname, '..', 'uploads', fileName + '.' + type.split('/')[1]), imageBuffer, 'utf8');
+        require('fs').writeFileSync(require('path').join(__filename, '..','..', 'uploads', fileName + '.' + type.split('/')[1]), imageBuffer, 'utf8');
 
-        const stats = require('fs').statSync(require('path').join(__dirname, '..', 'uploads', fileName + '.' + type.split('/')[1]));
+        const stats = require('fs').statSync(require('path').join(__filename, '..', '..', 'uploads', fileName + '.' + type.split('/')[1]));
+
         const fileSizeInBytes = stats.size / (1024 * 1024);
 
         if (fileSizeInBytes > 10) {
 
-            require('fs').unlinkSync(require('path').join(__dirname, '..', 'uploads', fileName + '.' + type.split('/')[1]));
+            require('fs').unlinkSync(require('path').join(__filename, '..', '..', 'uploads', fileName + '.' + type.split('/')[1]));
             return 'File to large';
 
         } else {
